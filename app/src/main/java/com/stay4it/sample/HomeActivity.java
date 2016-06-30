@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.stay4it.R;
 import com.stay4it.core.BaseListActivity;
@@ -79,6 +80,14 @@ public class HomeActivity extends BaseListActivity<Module> {
             case R.id.menu_about:
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.stay4it.com/course/7"));
                 startActivity(intent);
+                break;
+
+            case R.id.action_favorite:
+                Toast.makeText(this,"kkkkk",Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.action_settings:
+                Toast.makeText(this,"00000000",Toast.LENGTH_SHORT).show();
                 break;
         }
         return true;

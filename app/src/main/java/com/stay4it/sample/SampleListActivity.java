@@ -1,12 +1,18 @@
 package com.stay4it.sample;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.stay4it.R;
@@ -56,7 +62,6 @@ public class SampleListActivity extends BaseListActivity<Benefit> {
         return new SampleViewHolder(view);
     }
 
-
     @Override
     protected ILayoutManager getLayoutManager() {
         random = new Random().nextInt(3);
@@ -69,6 +74,25 @@ public class SampleListActivity extends BaseListActivity<Benefit> {
                 return new MyStaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
         }
         return super.getLayoutManager();
+    }
+
+    @Override
+    protected void setUpMenu(int menuId) {
+        super.setUpMenu(R.menu.menu_home);
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_favorite:
+                Toast.makeText(this,"kkkkk",Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.action_settings:
+                Toast.makeText(this,"00000000",Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return true;
     }
 
     @Override
@@ -106,6 +130,7 @@ public class SampleListActivity extends BaseListActivity<Benefit> {
                              if (response.body().results == null || response.body().results.size() == 0) {
                                  recycler.enableLoadMore(false);
                              } else {
+                                 Log.v("INFO","*******  请求得到的数据图片     ********"+response.body().toString());
                                  recycler.enableLoadMore(true);
                                  mDataList.addAll(response.body().results);
                                  adapter.notifyDataSetChanged();
@@ -134,7 +159,10 @@ public class SampleListActivity extends BaseListActivity<Benefit> {
 
         @Override
         public void onBindViewHolder(int position) {
-            mSampleListItemLabel.setVisibility(View.GONE);
+
+            Log.v("INFO","***************"+mDataList.get(position).url);
+
+            mSampleListItemLabel.setVisibility(View.VISIBLE);
             Glide.with(mSampleListItemImg.getContext())
                     .load(mDataList.get(position).url)
                     .centerCrop()
@@ -146,7 +174,8 @@ public class SampleListActivity extends BaseListActivity<Benefit> {
         @Override
         public void onItemClick(View view, int position) {
 
-        }
+            Toast.makeText(getBaseContext(),"哈哈",Toast.LENGTH_SHORT).show();
 
+        }
     }
 }
